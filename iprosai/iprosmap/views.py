@@ -33,4 +33,4 @@ with open('data.json', 'w') as outfile:
 
 
 def home(request):
-    return render(request, 'iprosmap/home.html',{'sql_query':json_output} )
+    return render(request, 'iprosmap/home.html',{'sql_query':json_output})
