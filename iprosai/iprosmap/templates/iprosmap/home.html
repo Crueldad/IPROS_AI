@@ -22,16 +22,14 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'css/util.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
 <!--===============================================================================================-->
-
-
 </head>
 <body>
-	<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+
 	<div class="limiter">
 		<div class="container-table100">
 			<div class="wrap-table100">
 				<div class="table100 ver3 m-b-110">
-					<table data-vertable="ver3" id="gable">
+					<table id= "health_table" data-vertable="ver3">
 						<thead>
 							<tr class="row100 head">
 								<th class="column100 column1" data-column="column1">PlanID</th>
@@ -42,19 +40,30 @@
 								<th class="column100 column6" data-column="column6">Member First Name</th>
 								<th class="column100 column7" data-column="column7">DOB</th>
 								<th class="column100 column8" data-column="column8">Gender</th>
-								<th class="column100 column8" data-column="column8">Phone</th>
-								<th class="column100 column8" data-column="column8">Address 1</th>
-								<th class="column100 column8" data-column="column8">Address 2</th>
-								<th class="column100 column8" data-column="column8">City</th>
-								<th class="column100 column8" data-column="column8">State</th>
-								<th class="column100 column8" data-column="column8">Zipcode</th>
-								<th class="column100 column8" data-column="column8">AgentID</th>
-								<th class="column100 column8" data-column="column8">Agent Name</th>
-								<th class="column100 column8" data-column="column8">SubAgentID</th>
-								<th class="column100 column8" data-column="column8">SubAgentName</th>
+								<th class="column100 column9" data-column="column9">Phone</th>
+								<th class="column100 column10" data-column="column10">Address 1</th>
+								<th class="column100 column11" data-column="column11">Address 2</th>
+								<th class="column100 column12" data-column="column12">City</th>
+								<th class="column100 column13" data-column="column13">State</th>
+								<th class="column100 column14" data-column="column14">Zipcode</th>
+								<th class="column100 column15" data-column="column15">AgentID</th>
+								<th class="column100 column16" data-column="column16">Agent Name</th>
+								<th class="column100 column17" data-column="column17">SubAgentID</th>
+								<th class="column100 column18" data-column="column18">SubAgentName</th>
 							</tr>
 						</thead>
 						<tbody>
+							<tr class="row100">
+								<td class="column100 column1" data-column="column1">Please</td>
+								<td class="column100 column2" data-column="column2">Wait</td>
+								<td class="column100 column3" data-column="column3">for</td>
+								<td class="column100 column4" data-column="column4">data</td>
+								<td class="column100 column5" data-column="column5">to</td>
+								<td class="column100 column6" data-column="column6">load</td>
+								<td class="column100 column7" data-column="column7">Ipros</td>
+								<td class="column100 column8" data-column="column8">Insurance Professionals</td>
+							</tr>
+
 						</tbody>
 					</table>
 				</div>
@@ -62,9 +71,59 @@
 		</div>
 	</div>
 
+<script type="text/javascript">
 
-	
+	const healthbody = document.querySelector("#health_table > tbody");
+	var data = JSON.parse("{{sql_query|escapejs}}");
 
+	window.onload = (event) => {
+		populatehealth(data);
+		
+	};
+
+	function populatehealth (data) {
+		while (healthbody.firstChild) {
+			healthbody.removeChild(healthbody.firstChild);
+	} 
+
+		data.forEach((row) => {
+			const tr = document.createElement("tr");
+			tr.setAttribute('class', 'row100');
+			row.forEach((cell) =>{
+				const td = document.createElement("td");
+				td.setAttribute('class', 'column100 column1');
+				td.setAttribute('data-column', 'column1');
+				td.textContent = cell;
+				tr.appendChild(td);
+			});
+
+			healthbody.appendChild(tr);
+		});
+
+
+
+
+
+	}
+
+	// window.onload = function() {
+	// 	try{
+	// 		document.getElementById("tr").innerHTML = 'tr class="row100"';
+	// 		document.getElementById("td").innerHTML = 'td class="column100 column1" data-column="column1"';
+
+	// 	}
+	// 	catch(err){
+			
+	// 	}
+
+	// 	}
+
+</script>
+
+</body>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <!--===============================================================================================-->	
 	<script src="{% static 'vendor/jquery/jquery-3.2.1.min.js' %}"></script>
 <!--===============================================================================================-->
@@ -76,40 +135,5 @@
   <script src="{% static 'js/main.js' %}"></script>
   <!-- JSON.parse("{{sql_query|escapejs}}") -->
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js">
-  </script>
 
-
-
-
-  <script>
-	var data = JSON.parse("{{sql_query|escapejs}}");
-	var tr;
-	for (var i = 0; i < data.length; i++) {
-  tr = $('<tr class="row100"> </tr>');
-  tr.append('<td>'+ data[i][0] + "</td>");
-  tr.append("<td>" + data[i][1] + "</td>");
-  tr.append('<td>'+ data[i][2] + "</td>");
-  tr.append("<td>" + data[i][3] + "</td>");
-  tr.append('<td>'+ data[i][4] + "</td>");
-  tr.append("<td>" + data[i][5] + "</td>");
-  tr.append('<td>'+ data[i][6] + "</td>");
-  tr.append("<td>" + data[i][7] + "</td>");
-  tr.append('<td>'+ data[i][8] + "</td>");
-  tr.append("<td>" + data[i][9] + "</td>");
-  tr.append('<td>'+ data[i][10] + "</td>");
-  tr.append("<td>" + data[i][11] + "</td>");
-  tr.append('<td>'+ data[i][12] + "</td>");
-  tr.append("<td>" + data[i][13] + "</td>");
-  tr.append('<td>'+ data[i][14] + "</td>");
-  tr.append("<td>" + data[i][15] + "</td>");
-  tr.append('<td>'+ data[i][16] + "</td>");
-  tr.append("<td>" + data[i][17] + "</td>");
-  $('table').append(tr);
-}
-
-  </script>
-
-
-</body>
 </html>
