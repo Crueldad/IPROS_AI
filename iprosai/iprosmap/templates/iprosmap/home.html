@@ -23,12 +23,23 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
 <!--===============================================================================================-->
 </head>
+
+<style>
+	.my-custom-scrollbar {
+          position: relative;
+          height: 1000px;
+          overflow: auto;
+          }
+    .table-wrapper-scroll-y {
+          display: block;
+          }
+</style>
 <body>
 
 	<div class="limiter">
 		<div class="container-table100">
 			<div class="wrap-table100">
-				<div class="table100 ver3 m-b-110">
+				<div class="table100 ver3 m-b-110 table-wrapper-scroll-y my-custom-scrollbar" >
 					<table id= "health_table" data-vertable="ver3">
 						<thead>
 							<tr class="row100 head">
@@ -85,7 +96,7 @@
 		while (healthbody.firstChild) {
 			healthbody.removeChild(healthbody.firstChild);
 	} 
-
+		var num = 1;
 		data.forEach((row) => {
 			const tr = document.createElement("tr");
 			tr.setAttribute('class', 'row100');
@@ -93,11 +104,13 @@
 				const td = document.createElement("td");
 				td.setAttribute('class', 'column100 column1');
 				td.setAttribute('data-column', 'column1');
+				num += 1
 				td.textContent = cell;
 				tr.appendChild(td);
+			
 			});
-
 			healthbody.appendChild(tr);
+
 		});
 
 
@@ -105,18 +118,6 @@
 
 
 	}
-
-	// window.onload = function() {
-	// 	try{
-	// 		document.getElementById("tr").innerHTML = 'tr class="row100"';
-	// 		document.getElementById("td").innerHTML = 'td class="column100 column1" data-column="column1"';
-
-	// 	}
-	// 	catch(err){
-			
-	// 	}
-
-	// 	}
 
 </script>
 
