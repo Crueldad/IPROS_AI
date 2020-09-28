@@ -22,6 +22,7 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'css/util.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/sort_table.css' %}">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	
 	
 <!--===============================================================================================-->
@@ -49,14 +50,16 @@
 	.table.sticky td{
 		color: black;
 	}
+
+
 </style>
 
 
 <body>
-
 	<div class="limiter">
 		<div class="container-table100">
 			<div class="wrap-table100">
+				<input id="myInput" type="text" placeholder="Search..">
 				<div class="table100 ver3 m-b-110 table-wrapper-scroll-y my-custom-scrollbar" >
 					<table id= "health_table" data-vertable="ver3" class= "table-sortable table sticky">
 						<thead>
@@ -81,7 +84,7 @@
 								<th class="column100 column18" data-column="column18">SubAgentName</th>
 							</tr>
 						</thead>
-						<tbody>
+						<tbody id="myTable">
 							<tr class="row100">
 								<td class="column100 column1" data-column="column1">Please</td>
 								<td class="column100 column2" data-column="column2">Wait</td>
@@ -136,10 +139,19 @@ function populatehealth (data) {
 
 
 
-
-
 }
 </script>
+
+<script>
+	$(document).ready(function(){
+	  $("#myInput").on("keyup", function() {
+		var value = $(this).val().toLowerCase();
+		$("#myTable tr").filter(function() {
+		  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+		});
+	  });
+	});
+	</script>
 
 
 
